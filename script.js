@@ -1,46 +1,46 @@
-// Get user input (choice)
-// Call getComputerChoice()
-// Call playRound(playerSelection, computerSelection)
-
-// Get user input
-let playerSelection = prompt('Enter your choice: ');
+/*
+  Get user input (choice)
+  Call getComputerChoice()
+  Call playRound(playerSelection, computerSelection) 
+*/
 
 // make random choice on behalf of the computer
 function getComputerChoice() {
   // Determine a random number between 0 and 2
-  // set 0 to rock
-  // set 1 to paper
-  // set 2 to scissors
-  // Return the choice
-
   let randomNumber = Math.floor(Math.random() * 3);
   let computerChoice;
 
-  if (randomNumber === 0) computerChoice = 'rock';
-  else if (randomNumber === 1) computerChoice = 'paper';
-  else computerChoice = 'scissors';
+  // set 0 to rock, set 1 to paper, set 2 to scissors
+  if (randomNumber === 0) computerChoice = "rock";
+  else if (randomNumber === 1) computerChoice = "paper";
+  else computerChoice = "scissors";
 
   return computerChoice;
 }
 
+// A single round of rock paper scissors decides who wins
 function playRound(playerSelection, computerSelection) {
-  // if playerSelection equals rock and computerSelection equals scissors
-    // palyer wins
-  // if playerSelection equals paper and computerSelection equals rock
-    // player wins
-  // if playerSelection equals scissors and computerSelection equals paper
-    // player wins
-
-
-  // if playerSelection equals scissors and computerSelection equals rock
-    // computer wins
-  // if playerSelectoin equals rock and computerSelection equals paper
-    // computer wins
-  // if plaeyrSelection equals paper and computerselection equls scissors
-    // computer wins
-
-
-    // if playerselection equals computerselection
-        // tie 
-        // call playRound()
+  if (
+    (playerSelection === "rock" && computerSelection === "scissors") ||
+    (computerSelection === "rock" && playerSelection === "paper") ||
+    (computerSelection === "paper" && playerSelection === "scissors")
+  ) {
+    return `You Win! ${playerSelection} beats ${computerSelection}`;
+  } else if (
+    (playerSelection === "rock" && computerSelection === "paper") ||
+    (playerSelection === "paper" && computerSelection === "scissors") ||
+    (computerSelection === "rock" && playerSelection === "scissors")
+  ) {
+    return `You Lose! ${computerSelection} beats ${playerSelection}`;
+  } else if (playerSelection === computerSelection) {
+    return "Tie!";
+  } else {
+    return "Wrong choice";
+  }
 }
+
+// Get user input
+let playerSelection = prompt("Enter your choice: ");
+const computerSelection = getComputerChoice();
+
+console.log(playRound(playerSelection, computerSelection));
