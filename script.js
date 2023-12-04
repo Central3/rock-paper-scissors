@@ -1,9 +1,3 @@
-/*
-  Get user input (choice)
-  Call getComputerChoice()
-  Call playRound(playerSelection, computerSelection) 
-*/
-
 // make random choice on behalf of the computer
 function getComputerChoice() {
   // Determine a random number between 0 and 2
@@ -25,22 +19,30 @@ function playRound(playerSelection, computerSelection) {
     (computerSelection === "rock" && playerSelection === "paper") ||
     (computerSelection === "paper" && playerSelection === "scissors")
   ) {
-    return `You Win! ${playerSelection} beats ${computerSelection}`;
+    return `You Win! ${
+      playerSelection[0].toUpperCase() + playerSelection.slice(1)
+    } beats ${computerSelection[0].toUpperCase() + computerSelection.slice(1)}`;
   } else if (
     (playerSelection === "rock" && computerSelection === "paper") ||
     (playerSelection === "paper" && computerSelection === "scissors") ||
     (computerSelection === "rock" && playerSelection === "scissors")
   ) {
-    return `You Lose! ${computerSelection} beats ${playerSelection}`;
+    return `You Lose! ${
+      computerSelection[0].toUpperCase() + computerSelection.slice(1)
+    } beats ${playerSelection[0].toUpperCase() + playerSelection.slice(1)}`;
   } else if (playerSelection === computerSelection) {
-    return "Tie!";
+    console.log("Tie!");
+
+    playerSelection = prompt("Enter your choice: ").toLowerCase();
+    computerSelection = getComputerChoice();
+    return playRound(playerSelection, computerSelection);
   } else {
     return "Wrong choice";
   }
 }
 
 // Get user input
-let playerSelection = prompt("Enter your choice: ");
+let playerSelection = prompt("Enter your choice: ").toLowerCase();
 const computerSelection = getComputerChoice();
 
 console.log(playRound(playerSelection, computerSelection));
