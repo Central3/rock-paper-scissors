@@ -1,0 +1,25 @@
+/* Css Resets */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+* {
+    margin: 0;
+}
+
+/* styles */
+.title {
+    text-align: center;
+}
+
+.stats {
+    display: flex;
+    justify-content: space-around;
+}
+
+.options {
+    display: flex;
+    justify-content: space-evenly;
+}
