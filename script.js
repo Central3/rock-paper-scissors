@@ -50,13 +50,11 @@ const modalBtn = document.querySelector(".modal_btn");
 const modalTxt = document.querySelector(".modal_text");
 
 playerChoiceBtns.addEventListener("click", (event) => {
-    if (event.target.nodeName === "BUTTON") {
+    if (event.target.nodeName === "IMG") {
         const playerSelection = event.target.className;
-        playerChoiceDisplay.textContent = playerSelection;
 
         const computerSelection = getComputerChoice();
 
-        computerChoiceDisplay.textContent = computerSelection;
         resultDisplay.textContent = playRound(
             playerSelection,
             computerSelection
