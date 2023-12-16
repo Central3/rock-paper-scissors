@@ -1,20 +1,14 @@
 const validChoices = ["rock", "paper", "scissors"];
 let playerScore = 0;
 let computerScore = 0;
-let gameOver = false;
 
 // make random choice on behalf of the computer
-function getComputerChoice() {
-    // Determine a random number between 0 and 2
-    let randomNumber = Math.floor(Math.random() * 3);
-
-    // set 0 to rock, set 1 to paper, set 2 to scissors
-    return validChoices[randomNumber];
+function getRandomChoice() {
+    return validChoices[Math.floor(Math.random() * 3)];
 }
 
 function isGameOver() {
-    gameOver = playerScore + computerScore >= 5 ? true : false;
-    return gameOver;
+    return playerScore === 5 || computerScore === 5;
 }
 
 // A single round of rock paper scissors decides who Wins or Loses
@@ -40,8 +34,6 @@ function playRound(playerSelection, computerSelection) {
 }
 
 const playerChoiceBtns = document.querySelector(".options");
-const playerChoiceDisplay = document.querySelector(".player_choice");
-const computerChoiceDisplay = document.querySelector(".computer_choice");
 const resultDisplay = document.querySelector(".result");
 const computerScoreDisplay = document.querySelector(".computer_score");
 const playerScoreDisplay = document.querySelector(".player_score");
@@ -53,14 +45,40 @@ playerChoiceBtns.addEventListener("click", (event) => {
     if (event.target.nodeName === "IMG") {
         const playerSelection = event.target.className;
 
-        const computerSelection = getComputerChoice();
+        const computerSelection = getRandomChoice();
+
+        const oldComputerChoiceImg = document.querySelector(".computer_choice");
+        const oldPlayerChoiceImg = document.querySelector(".player_choice");
+
+        if (oldComputerChoiceImg) oldComputerChoiceImg.remove();
+        if (oldPlayerChoiceImg) oldPlayerChoiceImg.remove();
 
         resultDisplay.textContent = playRound(
             playerSelection,
             computerSelection
         );
         computerScoreDisplay.textContent = computerScore;
+
+        const computerChoiceImg = document.createElement("img");
+        computerChoiceImg.setAttribute(
+            "src",
+            `./images/${computerSelection}.png`
+        );
+        computerChoiceImg.classList.add("computer_choice");
+        computerScoreDisplay.parentElement.insertBefore(
+            computerChoiceImg,
+            computerScoreDisplay
+        );
+
         playerScoreDisplay.textContent = playerScore;
+
+        const playerChoiceImg = document.createElement("img");
+        playerChoiceImg.setAttribute("src", `./images/${playerSelection}.png`);
+        playerChoiceImg.classList.add("player_choice");
+        playerScoreDisplay.parentElement.insertBefore(
+            playerChoiceImg,
+            playerScoreDisplay
+        );
 
         if (isGameOver()) {
             decideWinner();
